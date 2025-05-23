@@ -1,14 +1,42 @@
 import { Select, Tag } from "antd";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/actions";
+import { useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function InputTodo() {
+  const dispatch = useDispatch();
+  const inputTodoName = useRef(null);
+  const [priority, setPriority] = useState("Medium");
+
+  const handlePriorityChange = (value) => {
+    setPriority(value);
+  };
+  const handleAddTodoClick = () => {
+    dispatch(
+      addTodo({
+        id: uuidv4(),
+        name: inputTodoName.current.value,
+        completed: false,
+        priority: priority,
+      })
+    );
+    inputTodoName.current.value = "";
+    setPriority("Medium");
+  };
   return (
     <div className="flex gap-1 mt-4">
       <input
+        ref={inputTodoName}
         type="text"
         placeholder="Enter todo..."
         className="flex-1 px-2 duration-200 ease-in-out border border-gray-300 rounded-md hover:border-blue-400 focus:outline-none focus:border-blue-400 focus:shadow-xl"
       />
-      <Select defaultValue="Medium">
+      <Select
+        defaultValue="Medium"
+        onChange={handlePriorityChange}
+        value={priority}
+      >
         <Select.Option value="High" label="High">
           <Tag color="red">High</Tag>
         </Select.Option>
@@ -19,7 +47,10 @@ function InputTodo() {
           <Tag color="gray">Low</Tag>
         </Select.Option>
       </Select>
-      <button className="px-2 text-gray-600 duration-300 ease-in-out transform bg-blue-300 rounded-md hover:bg-blue-400 hover:scale-105">
+      <button
+        onClick={handleAddTodoClick}
+        className="px-2 text-gray-600 duration-300 ease-in-out transform bg-blue-300 rounded-md hover:bg-blue-400 hover:scale-105 cursor-pointer"
+      >
         Add
       </button>
     </div>
