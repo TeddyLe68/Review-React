@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
+import { todoListRemainingSelector } from "../redux/selectors";
 import Todo from "./Todo";
-import { todoListSelector } from "../redux/selectors";
 
 function TodoList() {
-  const todoList = useSelector(todoListSelector);
+  const todoList = useSelector(todoListRemainingSelector);
   return (
     <div className="flex flex-col h-[calc(100%-40px)] overflow-y-auto">
       {/* list todo */}
@@ -11,8 +11,10 @@ function TodoList() {
         {todoList.map((todoItem) => (
           <Todo
             key={todoItem.id}
+            id={todoItem.id}
             name={todoItem.name}
             priority={todoItem.priority}
+            completed={todoItem.completed}
           />
         ))}
       </div>
