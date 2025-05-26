@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import TodoSlice from "../redux/Slice/todosSlice";
+import TodoSlice, { updateTodo } from "../redux/Slice/TodosSlice";
 
 const prioriryColorMaping = {
   High: "bg-red-300",
@@ -14,7 +14,8 @@ function Todo({ name, priority, completed, id }) {
 
   const toggleCheckbox = () => {
     setChecked(!checked);
-    dispatch(TodoSlice.actions.toggleTodoStatus(id));
+    // dispatch(TodoSlice.actions.toggleTodoStatus(id));
+    dispatch(updateTodo(id));
   };
   return (
     <div
