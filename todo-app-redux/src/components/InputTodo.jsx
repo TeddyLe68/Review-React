@@ -1,8 +1,8 @@
 import { Select, Tag } from "antd";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/actions";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import todoListSlice from "../redux/Slice/TodosSlice";
 
 function InputTodo() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function InputTodo() {
   };
   const handleAddTodoClick = () => {
     dispatch(
-      addTodo({
+      todoListSlice.actions.addTodo({
         id: uuidv4(),
         name: inputTodoName.current.value,
         completed: false,

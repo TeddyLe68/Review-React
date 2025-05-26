@@ -2,12 +2,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Radio, Select, Tag } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  priorityFilterTodo,
-  searchTodo,
-  statusFilterTodo,
-} from "../redux/actions";
-import { todoListRemainingSelector } from "../redux/selectors";
+import filterSlice from "../redux/Slice/filterSlice";
 
 function Fillter() {
   const [searchText, setSearchText] = useState("");
@@ -17,17 +12,17 @@ function Fillter() {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-    dispatch(searchTodo(e.target.value));
+    dispatch(filterSlice.actions.searchFilterChange(e.target.value));
   };
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
-    dispatch(statusFilterTodo(e.target.value));
+    dispatch(filterSlice.actions.statusFilterChange(e.target.value));
   };
 
   const handlePriorityChange = (value) => {
     setPriority(value);
-    dispatch(priorityFilterTodo(value));
+    dispatch(filterSlice.actions.priorityFilterChange(value));
   };
 
   return (
